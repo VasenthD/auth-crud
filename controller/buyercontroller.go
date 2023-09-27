@@ -6,11 +6,16 @@ import (
 
 	"github.com/VasenthD/auth-crud/models"
 	pro "github.com/VasenthD/auth-crud/proto"
+	"github.com/VasenthD/auth-crud/services"
 )
 
 type Rpc struct {
 	pro.UnimplementedBuyerServiceServer
 }
+
+var (
+	buycontroller services.Buyerservice	
+)
 
 func (r *Rpc) CreateBuyer(ctx context.Context, in *pro.Buyersmodel) pro.DBresponse {
 
@@ -21,9 +26,11 @@ func (r *Rpc) CreateBuyer(ctx context.Context, in *pro.Buyersmodel) pro.DBrespon
 		Phonenumber: int(in.Phonenumber),
 		Password:    in.Password,
 	}
-	fmt.Println(input)
+	
+	result := buycontroller.CreateBuyer(&input)
 	output := pro.DBresponse{
 		Name: in.Name,
 	}
+	fmt.Println(result.Name)
 	return output
 }

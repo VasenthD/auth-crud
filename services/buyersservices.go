@@ -23,7 +23,7 @@ func (s *Buyerservice)CreateBuyer(buyers *models.Buyersmodel)(models.DBrespone){
 	if err != nil{
 		fmt.Println("error inserting the data of buyer..!!!🐼🐼🐼")
 	}
-	fmt.Println("id 📌",res.InsertedID)
+	fmt.Println("id 📌 : ",res.InsertedID)
 	output := models.DBrespone{
 		Name: buyers.Name,
 	}
