@@ -1,6 +1,6 @@
 syntax = "proto3";
 option go_package = "github.com/VasenthD/auth-crud";
-package proto;
+package protos;
 
 message Buyersmodel {
   string name = 1;
