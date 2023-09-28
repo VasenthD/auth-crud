@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/VasenthD/auth-crud/interfaces"
 	"github.com/VasenthD/auth-crud/models"
 	"go.mongodb.org/mongo-driver/mongo"
 )
@@ -14,11 +15,11 @@ type Buyerservice struct {
 	ctx context.Context
 }
 
-func InitBuyerservice(collection  *mongo.Collection, ctx context.Context)(*Buyerservice){
+func InitBuyerservice(collection  *mongo.Collection, ctx context.Context)(interfaces.Ibuyers){
 	return &Buyerservice{collection,ctx}
 }
 
-func (s *Buyerservice)CreateBuyer(buyers *models.Buyersmodel)(models.DBrespone){
+func (s *Buyerservice)CreateBuyer(buyers *models.Buyersmodel)(*models.DBrespone,error){
 	res,err:=s.collection.InsertOne(s.ctx,buyers)
 	if err != nil{
 		fmt.Println("error inserting the data of buyer..!!!🐼🐼🐼")
@@ -27,5 +28,5 @@ func (s *Buyerservice)CreateBuyer(buyers *models.Buyersmodel)(models.DBrespone){
 	output := models.DBrespone{
 		Name: buyers.Name,
 	}
-	return output
+	return &output,nil
 }

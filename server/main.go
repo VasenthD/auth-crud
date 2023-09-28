@@ -1,4 +1,4 @@
-package server
+package main
 
 import (
 	"context"
@@ -14,8 +14,8 @@ import (
 )
 
 func initserver(mongoclient *mongo.Client) {
-	collection := config.Getcollection(infos.Dbname, "auth-crud")
-	controller.Buycontroller = *services.InitBuyerservice(collection, context.Background())
+	collection := config.Getcollection(infos.Dbname, "authcrud")
+	controller.Buycontroller = services.InitBuyerservice(collection,context.Background())
 }
 
 func main() {
@@ -25,14 +25,14 @@ func main() {
 		return 
 	}
 	initserver(mongclient)
-	lis,err:=net.Listen("tcp",infos.Port)
+	lis, err := net.Listen("tcp", ":3000")
 	if err != nil {
-		fmt.Println("listening error :",err)
+		fmt.Println("listening errosscccr :",err)
 		return
 	}
 
 	s:=grpc.NewServer()
-	pro.RegisterBuyerServiceServer(s,&pro.UnimplementedBuyerServiceServer{})
+	pro.RegisterBuyerServiceServer(s, &controller.Rpc{})
 	fmt.Println("Server listening on", infos.Port)
 	fmt.Println("🥳 🥳 🥳")
 	if err := s.Serve(lis); err != nil {

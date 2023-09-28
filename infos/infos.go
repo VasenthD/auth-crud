@@ -1,6 +1,6 @@
 package infos
 
-const Connectionstring = "Connection string"
-const Dbname="college"
-const Port=":8080"
-const SecretKey ="secretkey-1"
+const Connectionstring = "mongodb+srv://vasenth01:ved@college.yx7msef.mongodb.net/"
+const Dbname = "college"
+const Port = ":2023"
+const SecretKey = "secretkey-1"

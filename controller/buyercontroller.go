@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/VasenthD/auth-crud/interfaces"
 	"github.com/VasenthD/auth-crud/models"
 	pro "github.com/VasenthD/auth-crud/proto"
-	"github.com/VasenthD/auth-crud/services"
 )
 
 type Rpc struct {
@@ -14,11 +14,10 @@ type Rpc struct {
 }
 
 var (
-	Buycontroller services.Buyerservice	
+	Buycontroller interfaces.Ibuyers
 )
 
-func (r *Rpc) CreateBuyer(ctx context.Context, in *pro.Buyersmodel) pro.DBresponse {
-
+func (r *Rpc) CreateBuyer(ctx context.Context, in *pro.Buyersmodel) (*pro.DBresponse, error) {
 	input := models.Buyersmodel{
 		Name:        in.Name,
 		Mail:        in.Mail,
@@ -26,11 +25,14 @@ func (r *Rpc) CreateBuyer(ctx context.Context, in *pro.Buyersmodel) pro.DBrespon
 		Phonenumber: int(in.Phonenumber),
 		Password:    in.Password,
 	}
-	
-	result := Buycontroller.CreateBuyer(&input)
+
+	result, err := Buycontroller.CreateBuyer(&input)
+	if err != nil {
+		fmt.Println("error in controllers 🪼🪼🪼")
+	}
 	output := pro.DBresponse{
 		Name: in.Name,
 	}
 	fmt.Println(result.Name)
-	return output
+	return &output, nil
 }
