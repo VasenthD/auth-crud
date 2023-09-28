@@ -14,7 +14,7 @@ type Rpc struct {
 }
 
 var (
-	buycontroller services.Buyerservice	
+	Buycontroller services.Buyerservice	
 )
 
 func (r *Rpc) CreateBuyer(ctx context.Context, in *pro.Buyersmodel) pro.DBresponse {
@@ -27,7 +27,7 @@ func (r *Rpc) CreateBuyer(ctx context.Context, in *pro.Buyersmodel) pro.DBrespon
 		Password:    in.Password,
 	}
 	
-	result := buycontroller.CreateBuyer(&input)
+	result := Buycontroller.CreateBuyer(&input)
 	output := pro.DBresponse{
 		Name: in.Name,
 	}
